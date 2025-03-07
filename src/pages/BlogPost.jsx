@@ -2,12 +2,22 @@ import { useParams } from 'react-router-dom';
 import { Navigation } from '../components/Navigation';
 import { Footer } from '../components/Footer';
 import { Link } from 'react-router-dom';
-import siteContent from '../data/siteContent.json';
+import { useSiteContent } from '../context/SiteContentContext';
 
 export function BlogPost() {
   const { id } = useParams();
-  const blogPosts = siteContent.blog.posts;
-  const post = blogPosts[id];
+  const { siteContent, loading } = useSiteContent();
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!siteContent) {
+    return <div>Error: Site content not loaded.</div>;
+  }
+
+  const blogPosts = siteContent.blog?.posts;
+  const post = blogPosts?.[id];
 
   if (!post) {
     return (

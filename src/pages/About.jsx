@@ -2,7 +2,7 @@ import React from 'react';
 import { Navigation } from '../components/Navigation';
 import { Footer } from '../components/Footer';
 import { Leaf, ChefHat, UtensilsCrossed, Award, Users, Clock, Heart } from 'lucide-react';
-import siteContent from '../data/siteContent.json';
+import { useSiteContent } from '../context/SiteContentContext';
 
 const stats = [
   {
@@ -44,6 +44,8 @@ const team = [
 ];
 
 export function About() {
+  const { siteContent } = useSiteContent();
+
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}

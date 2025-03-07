@@ -1,11 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Utensils, Instagram, Facebook, Twitter } from 'lucide-react';
-import siteContent from '../data/siteContent.json';
+import { useSiteContent } from '../context/SiteContentContext';
 
 export function Footer() {
+  const { siteContent, loading } = useSiteContent();
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!siteContent) {
+    return <div>Error: Site content not loaded.</div>;
+  }
+
   const { brand, footer } = siteContent;
-  
+
   // Function to render the appropriate social icon
   const renderSocialIcon = (iconName) => {
     switch(iconName) {
@@ -27,11 +37,11 @@ export function Footer() {
           <div>
             <Link to="/" className="flex items-center space-x-2 mb-6">
               <Utensils className="h-8 w-8 text-green-400" />
-              <span className="text-2xl font-bold">{brand.name}</span>
+              <span className="text-2xl font-bold">{brand?.name}</span>
             </Link>
             <div className="mb-6">
-              <h4 className="text-lg font-semibold mb-4">{footer.newsletter.title}</h4>
-              <p className="text-gray-400 mb-4">{footer.newsletter.description}</p>
+              <h4 className="text-lg font-semibold mb-4">{footer?.newsletter?.title}</h4>
+              <p className="text-gray-400 mb-4">{footer?.newsletter?.description}</p>
               <div className="flex">
                 <input 
                   type="email" 
@@ -45,7 +55,7 @@ export function Footer() {
             </div>
           </div>
           
-          {footer.linkGroups.map((group, index) => (
+          {footer?.linkGroups?.map((group, index) => (
             <div key={index}>
               <h4 className="text-lg font-semibold mb-4">{group.title}</h4>
               <ul className="space-y-2 text-gray-400">
@@ -63,7 +73,7 @@ export function Footer() {
           <div>
             <h4 className="text-lg font-semibold mb-4">Follow Us</h4>
             <div className="flex space-x-4">
-              {footer.social.links.map((social, index) => (
+              {footer?.social?.links?.map((social, index) => (
                 <a 
                   key={index} 
                   href={social.href} 
@@ -77,7 +87,7 @@ export function Footer() {
           </div>
         </div>
         <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
-          <p>{footer.copyright.text}</p>
+          <p>{footer?.copyright?.text}</p>
         </div>
       </div>
     </footer>

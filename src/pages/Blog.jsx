@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import { Navigation } from '../components/Navigation';
 import { Footer } from '../components/Footer';
 import { BookOpen, ArrowRight, Calendar, User, Clock, Play } from 'lucide-react';
-import siteContent from '../data/siteContent.json';
+import { useSiteContent } from '../context/SiteContentContext';
 
 // Use blog posts from siteContent
-const blogPosts = siteContent.blog.posts;
+const blogPosts = [];
 
 const recentPosts = [
   {
@@ -48,6 +48,9 @@ const categories = [
 ];
 
 export function Blog() {
+  const { siteContent } = useSiteContent();
+  const blogPosts = siteContent.blog.posts;
+
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}

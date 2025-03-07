@@ -17,7 +17,7 @@ import {
   Wine,
   ArrowUpCircle,
 } from 'lucide-react';
-import siteContent from '../data/siteContent.json';
+import { useSiteContent } from '../context/SiteContentContext';
 import { useState, useEffect } from 'react';
 
 // Function to render the appropriate icon
@@ -38,8 +38,7 @@ const renderIcon = (iconName) => {
   }
 };
 
-// Use experience cards from siteContent as features
-const features = siteContent.experience.cards;
+// Use SiteContent context - Context is used directly in JSX now
 
 const howItWorks = [
   {
@@ -117,7 +116,7 @@ export function Home() {
       <header className="relative h-screen">
         <div className="absolute inset-0">
           <img
-            src={siteContent.hero.banners[0].image}
+            src={useSiteContent().siteContent?.hero?.banners?.[0]?.image}
             alt="Hero background"
             className="w-full h-full object-cover"
           />
@@ -129,10 +128,10 @@ export function Home() {
         <div className="relative z-10 container mx-auto px-6 h-[calc(100vh-120px)] flex items-center">
           <div className="max-w-2xl">
             <h1 className="text-7xl font-bold text-white mb-8">
-              {siteContent.hero.banners[0].title}
+              {useSiteContent().siteContent?.brand?.name}
             </h1>
             <p className="text-2xl text-gray-200 mb-12 leading-relaxed">
-              {siteContent.hero.banners[0].subtitle}
+              {useSiteContent().siteContent?.hero?.banners?.[0]?.subtitle}
             </p>
             <Link
               to="/menu"
@@ -149,13 +148,13 @@ export function Home() {
       <section className="py-24 bg-gray-50">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-5xl font-bold mb-6">{siteContent.experience.section.title}</h2>
+            <h2 className="text-5xl font-bold mb-6">{useSiteContent().siteContent?.experience?.section?.title}</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              {siteContent.experience.section.subtitle}
+              {useSiteContent().siteContent?.experience?.section?.subtitle}
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-12">
-            {features.map((feature, index) => (
+            {useSiteContent().siteContent?.experience?.cards?.map((feature, index) => (
               <div key={index} className="text-center">
                 <div className="bg-green-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
                   {renderIcon(feature.icon)}

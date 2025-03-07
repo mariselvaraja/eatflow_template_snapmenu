@@ -4,9 +4,9 @@
 - Basic website structure.
 - Navigation component.
 - Cart context.
+- Site content context.
 
 ## What's left to build
-- Site content context.
 - Loading site content.
 - Page content.
 - Footer.
@@ -14,7 +14,8 @@
 - Pages: Home, Menu, About, Contact, Blog, Events, Gallery, Reservation, Checkout, Confirmation, Blog Post, Cart.
 
 ## Current status
-- Initializing memory bank and setting up site content context.
+- Fixed site content context error in BlogPost.
+- Fixed site content context error in Navigation.
 
 ## Known issues
 - None known

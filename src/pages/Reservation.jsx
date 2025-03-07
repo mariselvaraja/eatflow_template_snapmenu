@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Navigation } from '../components/Navigation';
 import { Footer } from '../components/Footer';
 import { Calendar, Clock, Users, UtensilsCrossed, MapPin, Phone } from 'lucide-react';
-import siteContent from '../data/siteContent.json';
+import { useSiteContent } from '../context/SiteContentContext';
 
 export function Reservation() {
   const [date, setDate] = useState('');

@@ -1,34 +1,46 @@
 import React, { createContext, useState, useEffect } from 'react';
 
+// Create SiteContentContext
 export const SiteContentContext = createContext(null);
 
+// SiteContentProvider Component
 export const SiteContentProvider = ({ children }) => {
   const [siteContent, setSiteContent] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchSiteContent = async () => {
+    const loadSiteContent = async () => {
       try {
-        const response = await fetch('/src/data/siteContent.json');
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        setSiteContent(data);
+        // Import siteContent.json
+        const data = await import('../data/siteContent.json');
+        setSiteContent(data.default);
         setLoading(false);
-      } catch (e) {
-        setError(e);
+      } catch (error) {
+        setError(error);
         setLoading(false);
       }
     };
 
-    fetchSiteContent();
+    loadSiteContent();
   }, []);
 
+  const value = {
+    siteContent,
+    loading,
+    error,
+  };
+
   return (
-    <SiteContentContext.Provider value={{ siteContent, loading, error }}>
+    <SiteContentContext.Provider value={value}>
       {children}
     </SiteContentContext.Provider>
   );
+};
+
+import { useContext } from 'react';
+
+// useSiteContent Hook
+export const useSiteContent = () => {
+  return useContext(SiteContentContext);
 };

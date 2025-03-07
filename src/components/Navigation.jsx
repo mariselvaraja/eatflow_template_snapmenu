@@ -1,12 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Utensils, Settings, ShoppingCart } from 'lucide-react';
-import siteContent from '../data/siteContent.json';
+import { useSiteContent } from '../context/SiteContentContext';
 import { useCart } from '../context/CartContext';
 
 export function Navigation() {
-  const { brand, navigation } = siteContent;
+  const { siteContent, loading } = useSiteContent();
   const { toggleCart } = useCart();
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!siteContent) {
+    return <div>Error: Site content not loaded.</div>;
+  }
+
+  const { brand, navigation } = siteContent;
 
   // Function to render the appropriate icon
   const renderIcon = (iconName) => {
