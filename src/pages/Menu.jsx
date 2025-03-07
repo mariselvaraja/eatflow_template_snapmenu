@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Navigation } from '../components/Navigation';
 import { Footer } from '../components/Footer';
 import { UtensilsCrossed, Search, ChevronDown, ChevronUp, AlertCircle, Leaf, Wheat, X } from 'lucide-react';
@@ -176,7 +176,7 @@ export function Menu() {
     return categories;
   };
   
-  const categories = processMenuData();
+  const categories = useMemo(() => processMenuData(), [menu]);
 
   // Apply filters to menu items
   useEffect(() => {

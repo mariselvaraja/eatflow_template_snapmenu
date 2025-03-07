@@ -20,3 +20,6 @@
 
 ## Known issues
 - None known
+
+## Recent changes
+- Fixed "Maximum update depth exceeded" error in Menu.jsx by memoizing the `categories` variable using `useMemo`.

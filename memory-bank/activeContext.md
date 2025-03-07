@@ -1,7 +1,7 @@
 # Active Context
 
 ## Current work focus
-Fixing site content context error in BlogPost, Navigation, and Footer.
+Fixing "Maximum update depth exceeded" error in Menu.jsx.
 
 ## Recent changes
 - Initialized memory bank.
