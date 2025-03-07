@@ -15,7 +15,7 @@ export const SiteContentProvider = ({ children, restaurant_id, isPreview }) => {
         // Import siteContent.json
         console.log(`restaurant_id: ${restaurant_id}`);
         console.log(`isPreview: ${isPreview}`);
-        const data = await import(`../data/${restaurant_id}/siteContent.json`);
+        const data = await import(`../data/${restaurant_id}/v1/siteContent.json`);
         setSiteContent(data.default);
         setLoading(false);
       } catch (error) {
