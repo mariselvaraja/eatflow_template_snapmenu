@@ -13,13 +13,24 @@ import { CartDrawer } from './components/CartDrawer';
 import { Checkout } from './pages/Checkout';
 import { Confirmation } from './pages/Confirmation';
 import { BlogPost } from './pages/BlogPost';
+import { SiteContentProvider } from './context/SiteContentContext';
+import { MenuProvider } from './context/MenuContext';
 
 function App() {
+
+  let restaurant_id = "86093f60-e153-4a05-9d93-73a971746b4e";
+  let isPreview = false; 
+
+  // let restaurant_id = "86093f60-e153-4a05-9d93-73a971746b4e";
+
   return (
-    <CartProvider>
-      {/* Use the hook inside the provider */}
-      <CartContent />
-    </CartProvider>
+    <SiteContentProvider>
+      <MenuProvider>
+        <CartProvider>
+          {/* Use the hook inside the provider */} <CartContent />
+        </CartProvider>
+      </MenuProvider>
+    </SiteContentProvider>
   );
 }
 
