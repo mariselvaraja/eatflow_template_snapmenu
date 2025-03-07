@@ -16,6 +16,7 @@
 ## Current status
 - Fixed site content context error in BlogPost.
 - Fixed site content context error in Navigation.
+- Fixed site content context error in Reservation.
 
 ## Known issues
 - None known

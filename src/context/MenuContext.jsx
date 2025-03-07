@@ -10,14 +10,8 @@ export const MenuProvider = ({ children, restaurant_id, isPreview }) => {
   useEffect(() => {
     const fetchMenu = async () => {
       try {
-        console.log(`restaurant_id: ${restaurant_id}`);
-        console.log(`isPreview: ${isPreview}`);
-        const response = await import(`../data/${restaurant_id}/menu.json`);
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        setMenu(data);
+        const menuData = await import('../data/menu.json');
+        setMenu(menuData);
         setLoading(false);
       } catch (e) {
         setError(e);
@@ -26,7 +20,7 @@ export const MenuProvider = ({ children, restaurant_id, isPreview }) => {
     };
 
     fetchMenu();
-  }, [restaurant_id, isPreview]);
+  }, []);
 
   return (
     <MenuContext.Provider value={{ menu, loading, error, restaurant_id, isPreview }}>

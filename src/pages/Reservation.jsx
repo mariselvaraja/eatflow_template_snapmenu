@@ -10,6 +10,20 @@ export function Reservation() {
   const [guests, setGuests] = useState('2');
   const [occasion, setOccasion] = useState('');
 
+  const { siteContent, loading, error } = useSiteContent();
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
+  if (!siteContent) {
+    return <div>Site content not found.</div>;
+  }
+
   const occasions = [
     "Birthday",
     "Anniversary",

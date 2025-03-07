@@ -145,28 +145,19 @@ export function Menu() {
 
   // Transform menu data into categories format with subcategories
   const processMenuData = () => {
-    const categories = [
-      {
-        id: 'starters',
-        name: 'Starters',
-        items: menu?.menu?.starters || []
-      },
-      {
-        id: 'mains',
-        name: 'Main Course',
-        items: menu?.menu?.mains || []
-      },
-      {
-        id: 'desserts',
-        name: 'Desserts',
-        items: menu?.menu?.desserts || []
-      },
-      {
-        id: 'drinks',
-        name: 'Drinks',
-        items: menu?.menu?.drinks || []
+    const categories = [];
+    if (menu && menu.menu) {
+      for (const categoryId in menu.menu) {
+        if (menu.menu.hasOwnProperty(categoryId)) {
+          const categoryName = categoryId.charAt(0).toUpperCase() + categoryId.slice(1);
+          categories.push({
+            id: categoryId,
+            name: categoryName,
+            items: menu.menu[categoryId] || []
+          });
+        }
       }
-    ];
+    }
 
     // Extract subcategories for each category
     categories.forEach(category => {
@@ -232,7 +223,7 @@ export function Menu() {
     }
     
     setFilteredItems(items);
-  }, [activeCategory, activeSubCategory, searchTerm, dietaryFilters, menu]);
+  }, [activeCategory, activeSubCategory, searchTerm, dietaryFilters, menu, categories]);
   
   // Reset subcategory when category changes
   useEffect(() => {
