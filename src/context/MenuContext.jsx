@@ -12,7 +12,7 @@ export const MenuProvider = ({ children, restaurant_id, isPreview }) => {
       try {
         console.log(`restaurant_id: ${restaurant_id}`);
         console.log(`isPreview: ${isPreview}`);
-        const response = await fetch('/src/data/menu.json');
+        const response = await import(`../data/${restaurant_id}/menu.json`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
