@@ -10,7 +10,7 @@ export const MenuProvider = ({ children, restaurant_id, isPreview }) => {
   useEffect(() => {
     const fetchMenu = async () => {
       try {
-        const data = await import(`../data/${restaurant_id}/v1/menu.json`);
+        const menuData = await import(`../data/${restaurant_id}/v1/menu.json`);
         setMenu(menuData);
         setLoading(false);
       } catch (e) {
