@@ -23,3 +23,4 @@
 
 ## Recent changes
 - Fixed "Maximum update depth exceeded" error in Menu.jsx by memoizing the `categories` variable using `useMemo`.
+- Fixed "TypeError: Cannot read properties of null (reading 'useState')" error in `SiteContentContext.jsx` by adding `restaurant_id` to the dependency array of the `useEffect` hook in `MenuContext.jsx`.

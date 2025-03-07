@@ -1,7 +1,7 @@
 # Active Context
 
 ## Current work focus
-Fixing "Maximum update depth exceeded" error in Menu.jsx.
+Fixing "TypeError: Cannot read properties of null (reading 'useState')" error in SiteContentContext.jsx and ensuring menu data loads correctly.
 
 ## Recent changes
 - Initialized memory bank.

@@ -20,7 +20,7 @@ export const MenuProvider = ({ children, restaurant_id, isPreview }) => {
     };
 
     fetchMenu();
-  }, []);
+  }, [restaurant_id]);
 
   return (
     <MenuContext.Provider value={{ menu, loading, error, restaurant_id, isPreview }}>
