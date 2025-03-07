@@ -4,7 +4,7 @@ import React, { createContext, useState, useEffect } from 'react';
 export const SiteContentContext = createContext(null);
 
 // SiteContentProvider Component
-export const SiteContentProvider = ({ children }) => {
+export const SiteContentProvider = ({ children, restaurant_id, isPreview }) => {
   const [siteContent, setSiteContent] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -13,6 +13,8 @@ export const SiteContentProvider = ({ children }) => {
     const loadSiteContent = async () => {
       try {
         // Import siteContent.json
+        console.log(`restaurant_id: ${restaurant_id}`);
+        console.log(`isPreview: ${isPreview}`);
         const data = await import('../data/siteContent.json');
         setSiteContent(data.default);
         setLoading(false);
@@ -23,12 +25,14 @@ export const SiteContentProvider = ({ children }) => {
     };
 
     loadSiteContent();
-  }, []);
+  }, [restaurant_id, isPreview]);
 
   const value = {
     siteContent,
     loading,
     error,
+    restaurant_id,
+    isPreview,
   };
 
   return (

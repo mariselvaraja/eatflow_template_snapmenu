@@ -2,7 +2,7 @@ import React, { createContext, useState, useEffect } from 'react';
 
 export const MenuContext = createContext(null);
 
-export const MenuProvider = ({ children }) => {
+export const MenuProvider = ({ children, restaurant_id, isPreview }) => {
   const [menu, setMenu] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -10,6 +10,8 @@ export const MenuProvider = ({ children }) => {
   useEffect(() => {
     const fetchMenu = async () => {
       try {
+        console.log(`restaurant_id: ${restaurant_id}`);
+        console.log(`isPreview: ${isPreview}`);
         const response = await fetch('/src/data/menu.json');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -24,10 +26,10 @@ export const MenuProvider = ({ children }) => {
     };
 
     fetchMenu();
-  }, []);
+  }, [restaurant_id, isPreview]);
 
   return (
-    <MenuContext.Provider value={{ menu, loading, error }}>
+    <MenuContext.Provider value={{ menu, loading, error, restaurant_id, isPreview }}>
       {children}
     </MenuContext.Provider>
   );

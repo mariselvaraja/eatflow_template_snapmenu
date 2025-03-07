@@ -19,13 +19,11 @@ import { MenuProvider } from './context/MenuContext';
 function App() {
 
   let restaurant_id = "86093f60-e153-4a05-9d93-73a971746b4e";
-  let isPreview = false; 
-
-  // let restaurant_id = "86093f60-e153-4a05-9d93-73a971746b4e";
+  let isPreview = false;
 
   return (
-    <SiteContentProvider>
-      <MenuProvider>
+    <SiteContentProvider restaurant_id={restaurant_id} isPreview={isPreview}>
+      <MenuProvider restaurant_id={restaurant_id} isPreview={isPreview}>
         <CartProvider>
           {/* Use the hook inside the provider */} <CartContent />
         </CartProvider>
