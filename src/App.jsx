@@ -18,7 +18,7 @@ import { MenuProvider } from './context/MenuContext';
 
 function App() {
 
-  let restaurant_id = "86093f60-e153-4a05-9d93-73a971746b4e";
+  let restaurant_id = "e62f39bc-7e8a-4da3-8c47-ed8d8fe28aba";
   let isPreview = false;
 
   return (

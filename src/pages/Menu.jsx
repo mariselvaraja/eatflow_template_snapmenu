@@ -2,52 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Navigation } from '../components/Navigation';
 import { Footer } from '../components/Footer';
 import { UtensilsCrossed, Search, ChevronDown, ChevronUp, AlertCircle, Leaf, Wheat, X } from 'lucide-react';
-import menuData from '../data/menu.json';
 import { useCart } from '../context/CartContext';
-
-// Transform menu data into categories format with subcategories
-const processMenuData = () => {
-  const categories = [
-    {
-      id: 'starters',
-      name: 'Starters',
-      items: menuData.menu.starters
-    },
-    {
-      id: 'mains',
-      name: 'Main Course',
-      items: menuData.menu.mains
-    },
-    {
-      id: 'desserts',
-      name: 'Desserts',
-      items: menuData.menu.desserts
-    },
-    {
-      id: 'drinks',
-      name: 'Drinks',
-      items: menuData.menu.drinks
-    }
-  ];
-
-  // Extract subcategories for each category
-  categories.forEach(category => {
-    const subcategories = new Set();
-    category.items.forEach(item => {
-      if (item.subCategory) {
-        subcategories.add(item.subCategory);
-      }
-    });
-    category.subcategories = Array.from(subcategories).map(subCat => ({
-      id: subCat,
-      name: subCat.charAt(0).toUpperCase() + subCat.slice(1).replace('-', ' ')
-    }));
-  });
-
-  return categories;
-};
-
-const categories = processMenuData();
+import { useMenu } from '../context/MenuContext';
 
 const MenuItem = ({ item }) => {
   const [showDetails, setShowDetails] = useState(false);
@@ -176,6 +132,7 @@ const MenuItem = ({ item }) => {
 };
 
 export function Menu() {
+  const { menu } = useMenu();
   const [activeCategory, setActiveCategory] = useState('all');
   const [activeSubCategory, setActiveSubCategory] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
@@ -185,7 +142,51 @@ export function Menu() {
     glutenFree: false
   });
   const [filteredItems, setFilteredItems] = useState([]);
+
+  // Transform menu data into categories format with subcategories
+  const processMenuData = () => {
+    const categories = [
+      {
+        id: 'starters',
+        name: 'Starters',
+        items: menu?.menu?.starters || []
+      },
+      {
+        id: 'mains',
+        name: 'Main Course',
+        items: menu?.menu?.mains || []
+      },
+      {
+        id: 'desserts',
+        name: 'Desserts',
+        items: menu?.menu?.desserts || []
+      },
+      {
+        id: 'drinks',
+        name: 'Drinks',
+        items: menu?.menu?.drinks || []
+      }
+    ];
+
+    // Extract subcategories for each category
+    categories.forEach(category => {
+      const subcategories = new Set();
+      category.items.forEach(item => {
+        if (item.subCategory) {
+          subcategories.add(item.subCategory);
+        }
+      });
+      category.subcategories = Array.from(subcategories).map(subCat => ({
+        id: subCat,
+        name: subCat.charAt(0).toUpperCase() + subCat.slice(1).replace('-', ' ')
+      }));
+    });
+
+    return categories;
+  };
   
+  const categories = processMenuData();
+
   // Apply filters to menu items
   useEffect(() => {
     let items = [];
@@ -231,7 +232,7 @@ export function Menu() {
     }
     
     setFilteredItems(items);
-  }, [activeCategory, activeSubCategory, searchTerm, dietaryFilters]);
+  }, [activeCategory, activeSubCategory, searchTerm, dietaryFilters, menu]);
   
   // Reset subcategory when category changes
   useEffect(() => {

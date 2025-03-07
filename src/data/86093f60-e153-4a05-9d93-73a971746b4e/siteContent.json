@@ -1,9 +1,9 @@
 {
   "brand": {
-    "name": "Maison1",
+    "name": "Restaurant 1",
     "logo": {
       "icon": "Utensils",
-      "text": "Maison"
+      "text": "Restaurant 1"
     }
   },
   "navigation": {

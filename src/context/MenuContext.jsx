@@ -34,3 +34,9 @@ export const MenuProvider = ({ children, restaurant_id, isPreview }) => {
     </MenuContext.Provider>
   );
 };
+
+import { useContext } from 'react';
+
+export const useMenu = () => {
+  return useContext(MenuContext);
+};
