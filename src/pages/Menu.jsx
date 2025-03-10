@@ -12,7 +12,7 @@ const MenuItem = ({ item }) => {
   return (
     <div className="flex flex-col bg-white rounded-2xl overflow-hidden shadow-lg group">
       <div className="flex">
-        <div className="w-1/2 relative overflow-hidden">
+        <div className="w-1/2 relative overflow-hidden" style={{ width: '200px', height: '200px' }}>
           <img 
             src={item.image} 
             alt={item.name}
@@ -37,7 +37,7 @@ const MenuItem = ({ item }) => {
             </div>
           </div>
           <div className="flex items-center justify-between mt-4">
-            <span className="text-2xl font-bold text-green-600">${item.price}</span>
+            <span className="text-xl font-bold text-green-600">${item.price}</span>
             <div className="flex space-x-2">
               <button 
                 onClick={() => setShowDetails(!showDetails)}
