@@ -20,6 +20,8 @@
 
 ## Known issues
 - None known
+## Recent changes
+- Implemented validation for all Pickup Information fields (First Name, Last Name, Email, Phone Number, and Pickup Time) in Checkout component, moving the validation logic to the Order Summary section and refactoring the validation logic into a separate function called `validateForm`.
 
 ## Recent changes
 - Fixed "Maximum update depth exceeded" error in Menu.jsx by memoizing the `categories` variable using `useMemo`.
