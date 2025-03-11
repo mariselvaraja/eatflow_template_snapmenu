@@ -9,6 +9,19 @@ export function Reservation() {
   const [time, setTime] = useState('');
   const [guests, setGuests] = useState('2');
   const [occasion, setOccasion] = useState('');
+  const [tableNumber, setTableNumber] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [specialRequests, setSpecialRequests] = useState('');
+
+  const [dateError, setDateError] = useState('');
+  const [timeError, setTimeError] = useState('');
+  const [guestsError, setGuestsError] = useState('');
+  const [tableNumberError, setTableNumberError] = useState('');
+  const [nameError, setNameError] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [phoneError, setPhoneError] = useState('');
 
   const { siteContent, loading, error } = useSiteContent();
 
@@ -50,6 +63,72 @@ export function Reservation() {
     "8:30 PM"
   ];
 
+  const validateForm = () => {
+    let isValid = true;
+
+    if (!date) {
+      setDateError('Please select a date');
+      isValid = false;
+    } else {
+      setDateError('');
+    }
+
+    if (!time) {
+      setTimeError('Please select a time');
+      isValid = false;
+    } else {
+      setTimeError('');
+    }
+
+    if (!guests) {
+      setGuestsError('Please select the number of guests');
+      isValid = false;
+    } else {
+      setGuestsError('');
+    }
+
+    if (!tableNumber) {
+      setTableNumberError('Please enter a table number');
+      isValid = false;
+    } else {
+      setTableNumberError('');
+    }
+
+    if (!name) {
+      setNameError('Please enter your name');
+      isValid = false;
+    } else {
+      setNameError('');
+    }
+
+    if (!email) {
+      setEmailError('Please enter your email');
+      isValid = false;
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setEmailError('Please enter a valid email');
+      isValid = false;
+    } else {
+      setEmailError('');
+    }
+
+    if (!phone) {
+      setPhoneError('Please enter your phone number');
+      isValid = false;
+    } else {
+      setPhoneError('');
+    }
+
+    return isValid;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      // Submit the form
+      alert('Reservation submitted!');
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
@@ -85,7 +164,7 @@ export function Reservation() {
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto">
             <div className="bg-white rounded-2xl p-8 md:p-12 shadow-xl">
-              <form className="space-y-8">
+              <form className="space-y-8" onSubmit={handleSubmit}>
                 <div className="grid md:grid-cols-2 gap-8">
                   {/* Date Selection */}
                   <div>
@@ -102,6 +181,7 @@ export function Reservation() {
                       className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
                       min={new Date().toISOString().split('T')[0]}
                     />
+                    {dateError && <p className="text-red-500 text-sm">{dateError}</p>}
                   </div>
 
                   {/* Time Selection */}
@@ -122,6 +202,7 @@ export function Reservation() {
                         <option key={t} value={t}>{t}</option>
                       ))}
                     </select>
+                    {timeError && <p className="text-red-500 text-sm">{timeError}</p>}
                   </div>
 
                   {/* Number of Guests */}
@@ -142,6 +223,7 @@ export function Reservation() {
                       ))}
                       <option value="more">More than 10 guests</option>
                     </select>
+                    {guestsError && <p className="text-red-500 text-sm">{guestsError}</p>}
                   </div>
 
                   {/* Occasion */}
@@ -163,6 +245,24 @@ export function Reservation() {
                       ))}
                     </select>
                   </div>
+
+                  {/* Table Number */}
+                  <div>
+                    <label className="block text-gray-700 font-medium mb-2">
+                      <div className="flex items-center mb-2">
+                        <Calendar className="w-5 h-5 mr-2 text-green-600" />
+                        <span>Table Number</span>
+                      </div>
+                    </label>
+                    <input
+                      type="number"
+                      value={tableNumber}
+                      onChange={(e) => setTableNumber(e.target.value)}
+                      className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                      placeholder="Enter table number"
+                    />
+                    {tableNumberError && <p className="text-red-500 text-sm">{tableNumberError}</p>}
+                  </div>
                 </div>
 
                 {/* Contact Information */}
@@ -173,25 +273,34 @@ export function Reservation() {
                       <label className="block text-gray-700 font-medium mb-2">{siteContent.reservation.form.labels.name}</label>
                       <input
                         type="text"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
                         className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
                         placeholder={siteContent.reservation.form.placeholders.name}
                       />
+                      {nameError && <p className="text-red-500 text-sm">{nameError}</p>}
                     </div>
                     <div>
                       <label className="block text-gray-700 font-medium mb-2">{siteContent.reservation.form.labels.email}</label>
                       <input
                         type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
                         placeholder={siteContent.reservation.form.placeholders.email}
                       />
+                      {emailError && <p className="text-red-500 text-sm">{emailError}</p>}
                     </div>
                     <div>
                       <label className="block text-gray-700 font-medium mb-2">{siteContent.reservation.form.labels.phone}</label>
                       <input
                         type="tel"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
                         className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
                         placeholder={siteContent.reservation.form.placeholders.phone}
                       />
+                      {phoneError && <p className="text-red-500 text-sm">{phoneError}</p>}
                     </div>
                   </div>
                 </div>
@@ -200,6 +309,8 @@ export function Reservation() {
                 <div>
                   <label className="block text-gray-700 font-medium mb-2">{siteContent.reservation.form.labels.specialRequests}</label>
                   <textarea
+                    value={specialRequests}
+                    onChange={(e) => setSpecialRequests(e.target.value)}
                     className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
                     rows={4}
                     placeholder={siteContent.reservation.form.placeholders.specialRequests}
